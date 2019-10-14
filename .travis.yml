@@ -1,32 +1,32 @@
 sudo: required
-services:
-  - docker
+# services:
+#   - docker
 
-before_install:
-  - docker build -t lhangea/react-test -f ./client/Dockerfile.dev ./client
+# before_install:
+#   - docker build -t lhangea/react-test -f ./client/Dockerfile.dev ./client
 
-script:
-  - docker run -e CI=true lhangea/react-test npm test
+# script:
+#   - docker run -e CI=true lhangea/react-test npm test
 
-after_success:
-  - docker build -t lhangea/multi-client-fib ./client
-  - docker build -t lhangea/multi-nginx-fib ./nginx
-  - docker build -t lhangea/multi-server-fib ./server
-  - docker build -t lhangea/multi-worker-fib ./worker
-  # Log in to the docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Take those images and push them to docker hub
-  - docker push lhangea/multi-client-fib
-  - docker push lhangea/multi-nginx-fib
-  - docker push lhangea/multi-server-fib
-  - docker push lhangea/multi-worker-fib
+# after_success:
+#   - docker build -t lhangea/multi-client-fib ./client
+#   - docker build -t lhangea/multi-nginx-fib ./nginx
+#   - docker build -t lhangea/multi-server-fib ./server
+#   - docker build -t lhangea/multi-worker-fib ./worker
+#   # Log in to the docker CLI
+#   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+#   # Take those images and push them to docker hub
+#   - docker push lhangea/multi-client-fib
+#   - docker push lhangea/multi-nginx-fib
+#   - docker push lhangea/multi-server-fib
+#   - docker push lhangea/multi-worker-fib
 
 deploy:
   provider: elasticbeanstalk
-  region: us-west-1
-  app: multi-docker
-  env: MultiDocker-env
-  bucket_name: elasticbeanstalk-us-west-1-306476627547
+  region: eu-central-1
+  app: multi-docker-fib
+  env: MultiDockerFib-env
+  bucket_name: elasticbeanstalk-eu-central-1-023161053386
   bucket_path: docker-multi
   on:
     branch: master
