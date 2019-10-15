@@ -12,14 +12,14 @@ class Fib extends Component {
   componentDidMount() {
     this.fetchValues();
     this.fetchIndexes();
-    const socket = openSocket("http://localhost:3051");
-    socket.on("fibComputation", data => {
-      if (data.action === "doneCalculating") {
-        console.log("done calculating event on client side");
-        this.fetchValues();
-        this.fetchIndexes();
-      }
-    });
+    // const socket = openSocket("http://localhost:3051");
+    // socket.on("fibComputation", data => {
+    //   if (data.action === "doneCalculating") {
+    //     console.log("done calculating event on client side");
+    //     this.fetchValues();
+    //     this.fetchIndexes();
+    //   }
+    // });
   }
 
   async fetchValues() {
