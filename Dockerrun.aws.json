@@ -13,6 +13,12 @@
       "image": "lhangea/multi-server-fib",
       "hostname": "api",
       "essential": false,
+      "portMappings": [
+        {
+          "hostPort": 3051,
+          "containerPort": 5000
+        }
+      ],
       "memory": 128
     },
     {
