@@ -2,11 +2,11 @@ sudo: required
 services:
   - docker
 
-# before_install:
-#   - docker build -t lhangea/react-test -f ./client/Dockerfile.dev ./client
+before_install:
+  - docker build -t lhangea/react-test -f ./client/Dockerfile.dev ./client
 
-# script:
-#   - docker run -e CI=true lhangea/react-test npm test
+script:
+  - docker run -e CI=true lhangea/react-test npm test
 
 after_success:
   - docker build -t lhangea/multi-client-fib ./client
