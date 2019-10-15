@@ -8,18 +8,18 @@ before_install:
 script:
   - docker run -e CI=true lhangea/react-test npm test
 
-# after_success:
-#   - docker build -t lhangea/multi-client-fib ./client
-#   - docker build -t lhangea/multi-nginx-fib ./nginx
-#   - docker build -t lhangea/multi-server-fib ./server
-#   - docker build -t lhangea/multi-worker-fib ./worker
-#   # Log in to the docker CLI
-#   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-#   # Take those images and push them to docker hub
-#   - docker push lhangea/multi-client-fib
-#   - docker push lhangea/multi-nginx-fib
-#   - docker push lhangea/multi-server-fib
-#   - docker push lhangea/multi-worker-fib
+after_success:
+  - docker build -t lhangea/multi-client-fib ./client
+  - docker build -t lhangea/multi-nginx-fib ./nginx
+  - docker build -t lhangea/multi-server-fib ./server
+  - docker build -t lhangea/multi-worker-fib ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push lhangea/multi-client-fib
+  - docker push lhangea/multi-nginx-fib
+  - docker push lhangea/multi-server-fib
+  - docker push lhangea/multi-worker-fib
 
 deploy:
   provider: elasticbeanstalk
