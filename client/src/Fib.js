@@ -23,15 +23,19 @@ class Fib extends Component {
   }
 
   async fetchValues() {
-    const values = await axios.get("/api/values/current");
-    this.setState({ values: values.data });
+    try {
+      const values = await axios.get("/api/values/current");
+      this.setState({ values: values.data });
+    } catch (e) {}
   }
 
   async fetchIndexes() {
-    const seenIndexes = await axios.get("/api/values/all");
-    this.setState({
-      seenIndexes: seenIndexes.data
-    });
+    try {
+      const seenIndexes = await axios.get("/api/values/all");
+      this.setState({
+        seenIndexes: seenIndexes.data
+      });
+    } catch (e) {}
   }
 
   handleSubmit = async event => {
@@ -45,10 +49,20 @@ class Fib extends Component {
   };
 
   renderSeenIndexes() {
+    if (
+      this.state.seenIndexes.constructor !== Array ||
+      this.state.seenIndexes.length === 0
+    ) {
+      return "No indexes seen until now";
+    }
     return this.state.seenIndexes.map(({ number }) => number).join(", ");
   }
 
   renderValues() {
+    if (this.state.values.constructor !== Object) {
+      return "No values";
+    }
+
     const entries = [];
 
     for (let key in this.state.values) {

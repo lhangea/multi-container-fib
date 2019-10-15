@@ -11,6 +11,8 @@ services:
       context: ./nginx
     ports:
       - "3050:80"
+    depends_on:
+      - client
   api:
     build:
       dockerfile: Dockerfile.dev
@@ -38,6 +40,8 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
+    depends_on:
+      - api
   worker:
     environment:
       - REDIS_HOST=redis
@@ -48,3 +52,5 @@ services:
     volumes:
       - /app/node_modules
       - ./worker:/app
+    depends_on:
+      - redis
