@@ -25,9 +25,9 @@ deploy:
   provider: elasticbeanstalk
   region: eu-central-1
   app: multi-docker-fib
-  env: MultiDockerFib-env
+  env: MultiDockerFib-env-1
   bucket_name: elasticbeanstalk-eu-central-1-023161053386
-  bucket_path: docker-multi
+  bucket_path: docker-multi-fib
   on:
     branch: master
   access_key_id:
