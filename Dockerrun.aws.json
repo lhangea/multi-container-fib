@@ -25,6 +25,7 @@
       "name": "worker",
       "image": "lhangea/multi-worker-fib",
       "hostname": "worker",
+      "links": ["server", "redis"],
       "essential": false,
       "memory": 128
     },
@@ -39,7 +40,21 @@
           "containerPort": 80
         }
       ],
-      "links": ["client", "server"],
+      "links": ["client", "server", "postgres", "redis"],
+      "memory": 128
+    },
+    {
+      "name": "postgres",
+      "image": "postgres:latest",
+      "hostname": "postgres",
+      "essential": false,
+      "memory": 128
+    },
+    {
+      "name": "redis",
+      "image": "redis:latest",
+      "hostname": "redis",
+      "essential": false,
       "memory": 128
     }
   ]
