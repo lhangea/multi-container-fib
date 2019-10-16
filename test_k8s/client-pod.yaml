@@ -1,0 +1,14 @@
+# kubectl apply -f k8s/client-pod.yaml
+# kubectl get pods
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client-pod
+  labels:
+    component: web
+spec:
+  containers:
+    - name: client
+      image: lhangea/multi-client-fib
+      ports:
+        - containerPort: 3000
