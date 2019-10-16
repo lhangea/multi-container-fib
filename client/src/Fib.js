@@ -11,10 +11,8 @@ class Fib extends Component {
 
   componentDidMount() {
     this.fetchValues();
-    // this.fetchIndexes();
-    const socket = openSocket(
-      "http://multidockerfib-env-1.vauwvbi25m.eu-central-1.elasticbeanstalk.com:3051"
-    );
+    this.fetchIndexes();
+    const socket = openSocket("http://localhost:3051");
     socket.on("fibComputation", data => {
       if (data.action === "doneCalculating") {
         console.log("done calculating event on client side");
@@ -31,14 +29,14 @@ class Fib extends Component {
     } catch (e) {}
   }
 
-  // async fetchIndexes() {
-  //   try {
-  //     const seenIndexes = await axios.get("/api/values/all");
-  //     this.setState({
-  //       seenIndexes: seenIndexes.data
-  //     });
-  //   } catch (e) {}
-  // }
+  async fetchIndexes() {
+    try {
+      const seenIndexes = await axios.get("/api/values/all");
+      this.setState({
+        seenIndexes: seenIndexes.data
+      });
+    } catch (e) {}
+  }
 
   handleSubmit = async event => {
     event.preventDefault();
@@ -50,15 +48,15 @@ class Fib extends Component {
     console.log("handling submit");
   };
 
-  // renderSeenIndexes() {
-  //   if (
-  //     this.state.seenIndexes.constructor !== Array ||
-  //     this.state.seenIndexes.length === 0
-  //   ) {
-  //     return "No indexes seen until now";
-  //   }
-  //   return this.state.seenIndexes.map(({ number }) => number).join(", ");
-  // }
+  renderSeenIndexes() {
+    if (
+      this.state.seenIndexes.constructor !== Array ||
+      this.state.seenIndexes.length === 0
+    ) {
+      return "No indexes seen until now";
+    }
+    return this.state.seenIndexes.map(({ number }) => number).join(", ");
+  }
 
   renderValues() {
     if (this.state.values.constructor !== Object) {
@@ -91,8 +89,8 @@ class Fib extends Component {
           <button>Submit</button>
         </form>
 
-        {/* <h3>Indexes I have seen: </h3>
-        {this.renderSeenIndexes()} */}
+        <h3>Indexes I have seen: </h3>
+        {this.renderSeenIndexes()}
 
         <h3>Calculated Values: </h3>
         {this.renderValues()}
